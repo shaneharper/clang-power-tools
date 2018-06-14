@@ -207,6 +207,7 @@ namespace ClangPowerTools
             // Save the found errors 
             SaveErrorsMessages(errors);
           }
+          // If the buffer is full them write the first message and remove it
           else if (kBufferSize <= mMessagesBuffer.Count)
           {
             AddMessage(mMessagesBuffer[0]);
@@ -216,11 +217,15 @@ namespace ClangPowerTools
       }
       catch (Exception)
       {
-
       }
 
     }
 
+    /// <summary>
+    /// Receive and process the output messages from output stream of the power shell script in real time
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void OutputDataReceived(object sender, DataReceivedEventArgs e)
     {
       if (null == e.Data)
@@ -229,6 +234,11 @@ namespace ClangPowerTools
       ProcessOutput(e.Data);
     }
 
+    /// <summary>
+    /// Receive and process the error messages from error stream of the power shell script in real time
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void OutputDataErrorReceived(object sender, DataReceivedEventArgs e)
     {
       if (null == e.Data)
