@@ -1,5 +1,8 @@
 ﻿namespace ClangPowerTools
 {
+  /// <summary>
+  /// The selected items interface
+  /// </summary>
   public interface IItem
   {
     string GetName();
