@@ -2,24 +2,38 @@
 
 namespace ClangPowerTools
 {
+  /// <summary>
+  /// Detect when a file inside  a given directory is changed
+  /// </summary>
   public class FileChangerWatcher
   {
     #region Members
 
+    /// <summary>
+    /// File watcher object
+    /// </summary>
     FileSystemWatcher mWatcher = new FileSystemWatcher();
 
     #endregion
 
     #region Properties
 
+    /// <summary>
+    /// File watcher handler
+    /// </summary>
     public FileSystemEventHandler OnChanged { get; set; }
 
     #endregion
 
     #region Public methods
 
+    /// <summary>
+    /// Watch all the files inside a directory for changes
+    /// </summary>
+    /// <param name="aDirectoryPath"></param>
     public void Run(string aDirectoryPath)
     {
+      // Check if the path exists
       if (null == aDirectoryPath || string.IsNullOrWhiteSpace(aDirectoryPath))
         return;
 
