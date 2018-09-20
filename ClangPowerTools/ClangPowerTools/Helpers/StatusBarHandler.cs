@@ -23,7 +23,7 @@ namespace ClangPowerTools
       if (null == mStatusBar)
       {
         var vsStatusBarService = await aServiceProvider.GetServiceAsync(typeof(SVsStatusBarService)) as IVsStatusBarService;
-        mStatusBar = await vsStatusBarService.GetVsStatusBarAsync(aServiceProvider, cancellationToken);
+        mStatusBar = await vsStatusBarService.GetVsStatusBarAsync(cancellationToken);
       }
     }
 

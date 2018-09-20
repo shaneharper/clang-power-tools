@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services.OleMenuCommandCustomService
 {
   interface IOleMenuCommandService
   {
-    System.Threading.Tasks.Task<OleMenuCommandService> GetVsFileChangeAsync(IAsyncServiceProvider provider, CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<OleMenuCommandService> GetVsFileChangeAsync(CancellationToken cancellationToken);
   }
 }

@@ -6,6 +6,6 @@ namespace ClangPowerTools.Services
 {
   public interface IEnvDTEService
   {
-    System.Threading.Tasks.Task<DTE2> GetDTE2Async(IAsyncServiceProvider provider, CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<DTE2> GetDTE2Async();
   }
 }

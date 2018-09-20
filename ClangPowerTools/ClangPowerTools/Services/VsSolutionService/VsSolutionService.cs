@@ -25,9 +25,9 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync(Microsoft.VisualStudio.Shell.IAsyncServiceProvider provider, CancellationToken cancellationToken)
+    public async System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync(CancellationToken cancellationToken)
     {
-      return await provider.GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
+      return await mServiceProvider.GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
     }
 
     #endregion

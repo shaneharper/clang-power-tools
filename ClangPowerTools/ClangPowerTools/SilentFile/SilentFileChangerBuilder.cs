@@ -59,7 +59,7 @@ namespace ClangPowerTools.SilentFile
       try
       {
         var rdtService = await mSite.GetServiceAsync(typeof(SVsRunningDocumentTableService)) as IVsRunningDocumentTableService;
-        var rdt = await rdtService.GetVsRunningDocumentTableAsync(mSite, new CancellationToken());
+        var rdt = await rdtService.GetVsRunningDocumentTableAsync(new CancellationToken());
 
         if (rdt == null)
           return;
@@ -71,7 +71,7 @@ namespace ClangPowerTools.SilentFile
           return;
 
         var fileChangeService = await mSite.GetServiceAsync(typeof(SVsFileChangeService)) as IVsFileChangeService;
-        var fileChange = await fileChangeService.GetVsFileChangeAsync(mSite, new CancellationToken());
+        var fileChange = await fileChangeService.GetVsFileChangeAsync(new CancellationToken());
 
         if (fileChange == null)
           return;

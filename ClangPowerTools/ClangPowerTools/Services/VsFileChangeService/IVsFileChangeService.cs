@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services
 {
   public interface IVsFileChangeService
   {
-    System.Threading.Tasks.Task<IVsFileChangeEx> GetVsFileChangeAsync(Microsoft.VisualStudio.Shell.IAsyncServiceProvider provider, CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<IVsFileChangeEx> GetVsFileChangeAsync(CancellationToken cancellationToken);
   }
 }

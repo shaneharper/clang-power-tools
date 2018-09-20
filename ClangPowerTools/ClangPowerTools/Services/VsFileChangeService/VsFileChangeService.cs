@@ -22,10 +22,9 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async System.Threading.Tasks.Task<IVsFileChangeEx> GetVsFileChangeAsync(
-      Microsoft.VisualStudio.Shell.IAsyncServiceProvider provider, CancellationToken cancellationToken)
+    public async System.Threading.Tasks.Task<IVsFileChangeEx> GetVsFileChangeAsync(CancellationToken cancellationToken)
     {
-      return await provider.GetServiceAsync(typeof(SVsFileChangeEx)) as IVsFileChangeEx;
+      return await mServiceProvider.GetServiceAsync(typeof(SVsFileChangeEx)) as IVsFileChangeEx;
     }
 
     #endregion

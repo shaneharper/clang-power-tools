@@ -23,10 +23,9 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async Task<IVsOutputWindow> GetOutputWindowAsync(
-      Microsoft.VisualStudio.Shell.IAsyncServiceProvider provider, CancellationToken cancellationToken)
+    public async Task<IVsOutputWindow> GetOutputWindowAsync(CancellationToken cancellationToken)
     {
-      return await provider.GetServiceAsync(typeof(SVsOutputWindow)) as IVsOutputWindow;
+      return await mServiceProvider.GetServiceAsync(typeof(SVsOutputWindow)) as IVsOutputWindow;
     }
 
     #endregion

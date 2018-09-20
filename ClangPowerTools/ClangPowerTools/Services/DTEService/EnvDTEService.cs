@@ -24,9 +24,9 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async System.Threading.Tasks.Task<DTE2> GetDTE2Async(IAsyncServiceProvider provider, CancellationToken cancellationToken)
+    public async System.Threading.Tasks.Task<DTE2> GetDTE2Async()
     {
-      return await provider.GetServiceAsync(typeof(DTE)) as DTE2;
+      return await mServiceProvider.GetServiceAsync(typeof(DTE)) as DTE2;
     }
 
     #endregion

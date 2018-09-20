@@ -111,7 +111,7 @@ namespace ClangPowerTools
 
       // Get DTE
       var dteService = await GetServiceAsync(typeof(SEnvDTEService)) as IEnvDTEService;
-      mDte = await dteService.GetDTE2Async(this, cancellationToken);
+      mDte = await dteService.GetDTE2Async();
 
       mRunningDocTableEvents = new RunningDocTableEvents(this);
       mErrorWindow = new ErrorWindowController(this);
@@ -152,7 +152,7 @@ namespace ClangPowerTools
 
         // Get VsSolution 
         var vsSolutionService = await GetServiceAsync(typeof(SVsSolutionService)) as IVsSolutionService;
-        mSolution = await vsSolutionService.GetVsSolutionAsync(this, cancellationToken);
+        mSolution = await vsSolutionService.GetVsSolutionAsync(cancellationToken);
 
         mSolution?.AdviseSolutionEvents(this, out mHSolutionEvents);
       }

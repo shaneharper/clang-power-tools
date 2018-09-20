@@ -23,10 +23,9 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async Task<IVsRunningDocumentTable> GetVsRunningDocumentTableAsync(
-      Microsoft.VisualStudio.Shell.IAsyncServiceProvider provider, CancellationToken cancellationToken)
+    public async Task<IVsRunningDocumentTable> GetVsRunningDocumentTableAsync(CancellationToken cancellationToken)
     {
-      return await provider.GetServiceAsync(typeof(SVsRunningDocumentTable)) as IVsRunningDocumentTable;
+      return await mServiceProvider.GetServiceAsync(typeof(SVsRunningDocumentTable)) as IVsRunningDocumentTable;
     }
 
     #endregion
