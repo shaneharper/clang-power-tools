@@ -146,7 +146,7 @@ namespace ClangPowerTools.SilentFile
         aSilentFileChanger.PersistDocData.ReloadDocData(0);
 
       var fileChangeService = await mAsyncPackage.GetServiceAsync(typeof(SVsFileChangeService)) as IVsFileChangeService;
-      var fileChange = await fileChangeService.GetVsFileChangeAsync(new CancellationToken());
+      var fileChange = await fileChangeService.GetVsFileChangeAsync();
 
       if (fileChange == null)
         return;

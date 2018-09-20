@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services
 {
   public interface IVsOutputWindowService
   {
-    System.Threading.Tasks.Task<IVsOutputWindow> GetOutputWindowAsync(CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<IVsOutputWindow> GetOutputWindowAsync();
   }
 }

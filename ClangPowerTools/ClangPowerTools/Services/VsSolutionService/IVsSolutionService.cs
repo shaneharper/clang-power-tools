@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services
 {
   public interface IVsSolutionService
   {
-    System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync(CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync();
   }
 }

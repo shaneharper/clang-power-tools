@@ -48,9 +48,7 @@ namespace ClangPowerTools.Output
 
       // Get the VS Output Window 
       if (null == mOutputWindow.VsOutputWindow)
-      {
-        mOutputWindow.VsOutputWindow = await outputWindowService.GetOutputWindowAsync(new System.Threading.CancellationToken());
-      }
+        mOutputWindow.VsOutputWindow = await outputWindowService.GetOutputWindowAsync();
 
       if (null == mOutputWindow.Pane)
       {

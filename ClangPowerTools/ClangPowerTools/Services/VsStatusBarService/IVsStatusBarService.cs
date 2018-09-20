@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services
 {
   public interface IVsStatusBarService
   {
-    System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync(CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync();
   }
 }

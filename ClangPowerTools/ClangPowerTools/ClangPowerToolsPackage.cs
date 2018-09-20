@@ -152,7 +152,7 @@ namespace ClangPowerTools
 
         // Get VsSolution 
         var vsSolutionService = await GetServiceAsync(typeof(SVsSolutionService)) as IVsSolutionService;
-        mSolution = await vsSolutionService.GetVsSolutionAsync(cancellationToken);
+        mSolution = await vsSolutionService.GetVsSolutionAsync();
 
         mSolution?.AdviseSolutionEvents(this, out mHSolutionEvents);
       }

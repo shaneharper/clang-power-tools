@@ -24,7 +24,7 @@ namespace ClangPowerTools.Services.OleMenuCommandCustomService
 
     #region IEnvDTEService implementation
 
-    public async Task<OleMenuCommandService> GetVsFileChangeAsync(CancellationToken cancellationToken)
+    public async Task<OleMenuCommandService> GetVsFileChangeAsync()
     {
       return await mServiceProvider.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
     }

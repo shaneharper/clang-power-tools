@@ -25,7 +25,7 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync(CancellationToken cancellationToken)
+    public async System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync()
     {
       return await mServiceProvider.GetServiceAsync(typeof(SVsStatusbar)) as IVsStatusbar;
     }

@@ -5,6 +5,6 @@ namespace ClangPowerTools.Services
 {
   public interface IVsRunningDocumentTableService
   {
-    System.Threading.Tasks.Task<IVsRunningDocumentTable> GetVsRunningDocumentTableAsync(CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<IVsRunningDocumentTable> GetVsRunningDocumentTableAsync();
   }
 }
