@@ -1,11 +1,12 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 
 namespace ClangPowerTools.Services
 {
-  public class EnvDTEService : SEnvDTEService, IEnvDTEService, IService
+  public class EnvDTEService<T> : SEnvDTEService, IEnvDTEService<T>, IService where T : DTE
   {
     #region Members
 
@@ -24,9 +25,15 @@ namespace ClangPowerTools.Services
 
     #region IEnvDTEService implementation
 
-    public async System.Threading.Tasks.Task<DTE2> GetDTE2Async()
+
+    //public async Task<T> GetServiceAsync()
+    //{
+    //  return await mServiceProvider.GetServiceAsync(typeof(T));
+    //}
+
+    public async Task<T> GetServiceAsync()
     {
-      return await mServiceProvider.GetServiceAsync(typeof(DTE)) as DTE2;
+      return await mServiceProvider.GetServiceAsync(T.GetType());
     }
 
     #endregion
