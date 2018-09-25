@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Xml;
+using ClangPowerTools.Services;
+using ClangPowerTools.Output;
 
 namespace ClangPowerTools
 {

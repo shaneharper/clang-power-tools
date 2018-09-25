@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using System.Threading;
 
 namespace ClangPowerTools.Services
 {
@@ -7,6 +6,9 @@ namespace ClangPowerTools.Services
   {
     #region Members
 
+    /// <summary>
+    /// The service provider instance
+    /// </summary>
     private IAsyncServiceProvider mServiceProvider;
 
     #endregion
@@ -14,19 +16,25 @@ namespace ClangPowerTools.Services
 
     #region Constructor 
 
+    /// <summary>
+    /// Instance constructor
+    /// </summary>
+    /// <param name="aAsyncServiceProvider"></param>
     public AsyncServiceProviderWrapper(IAsyncServiceProvider aAsyncServiceProvider)
       => mServiceProvider = aAsyncServiceProvider;
 
-    #endregion
 
+    #endregion
+    
 
     #region IEnvDTEService implementation
 
+
     public async System.Threading.Tasks.Task<TService> GetServiceAsync()
     {
-      
       return (TService)await mServiceProvider.GetServiceAsync(typeof(TService));
     }
+
 
     #endregion
 

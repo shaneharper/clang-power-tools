@@ -1,6 +1,6 @@
-﻿namespace ClangPowerTools.Services.OleMenuCommandCustomService
+﻿namespace ClangPowerTools.Services
 {
-  interface SOleMenuCommandService
+  public interface SOleMenuCommandService
   {
   }
 }

@@ -14,15 +14,18 @@ namespace ClangPowerTools.Services
   {
     #region Members
 
+
     /// <summary>
     /// The service provider 
     /// </summary>
     private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
 
+
     #endregion
 
 
     #region Constructor
+
 
     /// <summary>
     /// Instance constructor
@@ -31,7 +34,9 @@ namespace ClangPowerTools.Services
     public ServiceFactory(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aServiceProvider)
       => mServiceProvider = aServiceProvider;
 
+
     #endregion
+
 
     #region Public Methods
 
@@ -69,7 +74,6 @@ namespace ClangPowerTools.Services
     }
 
     #endregion
-
 
   }
 }
