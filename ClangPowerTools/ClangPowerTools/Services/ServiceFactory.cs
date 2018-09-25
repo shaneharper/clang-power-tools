@@ -47,27 +47,25 @@ namespace ClangPowerTools.Services
       return await System.Threading.Tasks.Task.Run(() =>
       {
         if (typeof(SEnvDTEService) == serviceType)
-          return new AsyncService<DTE>(mServiceProvider) as IBaseService<DTE>;
+          return (object)new AsyncServiceProviderWrapper<DTE>(mServiceProvider);
 
         else if (typeof(SVsFileChangeService) == serviceType)
-          return new AsyncService<SVsFileChangeEx>(mServiceProvider) as IBaseService<SVsFileChangeEx>;
+          return (object)new AsyncServiceProviderWrapper<SVsFileChangeEx>(mServiceProvider);
 
         else if (typeof(SVsRunningDocumentTableService) == serviceType)
-          return new AsyncService<SVsRunningDocumentTable>(mServiceProvider) as IBaseService<SVsRunningDocumentTable>;
+          return (object)new AsyncServiceProviderWrapper<SVsRunningDocumentTable>(mServiceProvider);
 
         else if (typeof(SVsSolutionService) == serviceType)
-          return new AsyncService<SVsSolution>(mServiceProvider) as IBaseService<SVsSolution>;
+          return (object)new AsyncServiceProviderWrapper<SVsSolution>(mServiceProvider);
 
         else if (typeof(SVsStatusBarService) == serviceType)
-          return new AsyncService<SVsStatusbar>(mServiceProvider) as IBaseService<SVsStatusbar>;
+          return (object) new AsyncServiceProviderWrapper<SVsStatusbar>(mServiceProvider);
 
         else if (typeof(SVsOutputWindowService) == serviceType)
-          return new AsyncService<SVsOutputWindow>(mServiceProvider) as IBaseService<SVsOutputWindow>;
+          return (object)new AsyncServiceProviderWrapper<SVsOutputWindow>(mServiceProvider);
 
-        return null; 
-
+        return null;
       });
-      return null;
     }
 
     #endregion
