@@ -58,8 +58,8 @@ namespace ClangPowerTools.SilentFile
       var docData = IntPtr.Zero;
       try
       {
-        var rdtService = await mSite.GetServiceAsync(typeof(SVsRunningDocumentTableService)) as IVsRunningDocumentTableService;
-        var rdt = await rdtService.GetVsRunningDocumentTableAsync();
+        var rdtService = await mSite.GetServiceAsync(typeof(SVsRunningDocumentTableService)) as AsyncServiceProviderWrapper<SVsRunningDocumentTable>;
+        var rdt = await rdtService.GetServiceAsync() as IVsRunningDocumentTable;
 
         if (rdt == null)
           return;
@@ -70,8 +70,8 @@ namespace ClangPowerTools.SilentFile
         if ((docCookie == (uint)ShellConstants.VSDOCCOOKIE_NIL) || docData == IntPtr.Zero)
           return;
 
-        var fileChangeService = await mSite.GetServiceAsync(typeof(SVsFileChangeService)) as IVsFileChangeService;
-        var fileChange = await fileChangeService.GetVsFileChangeAsync();
+        var fileChangeService = await mSite.GetServiceAsync(typeof(SVsFileChangeService)) as AsyncServiceProviderWrapper<SVsFileChangeEx>;
+        var fileChange = await fileChangeService.GetServiceAsync() as IVsFileChangeEx;
 
         if (fileChange == null)
           return;

@@ -44,11 +44,11 @@ namespace ClangPowerTools.Output
 
     public async Task<object> AsyncBuild()
     {
-      var outputWindowService = await mPackage.GetServiceAsync(typeof(SVsOutputWindowService)) as IVsOutputWindowService;
+      var outputWindowService = await mPackage.GetServiceAsync(typeof(SVsOutputWindowService)) as AsyncServiceProviderWrapper<SVsOutputWindow>;
 
       // Get the VS Output Window 
       if (null == mOutputWindow.VsOutputWindow)
-        mOutputWindow.VsOutputWindow = await outputWindowService.GetOutputWindowAsync();
+        mOutputWindow.VsOutputWindow = await outputWindowService.GetServiceAsync() as IVsOutputWindow;
 
       if (null == mOutputWindow.Pane)
       {

@@ -4,6 +4,7 @@ using ClangPowerTools.Services;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -145,8 +146,8 @@ namespace ClangPowerTools.SilentFile
       if (null != aSilentFileChanger.PersistDocData && aSilentFileChanger.ReloadDocumentFlag)
         aSilentFileChanger.PersistDocData.ReloadDocData(0);
 
-      var fileChangeService = await mAsyncPackage.GetServiceAsync(typeof(SVsFileChangeService)) as IVsFileChangeService;
-      var fileChange = await fileChangeService.GetVsFileChangeAsync();
+      var fileChangeService = await mAsyncPackage.GetServiceAsync(typeof(SVsFileChangeService)) as AsyncServiceProviderWrapper<SVsFileChangeEx>;
+      var fileChange = await fileChangeService.GetServiceAsync() as IVsFileChangeEx; 
 
       if (fileChange == null)
         return;

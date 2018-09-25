@@ -110,8 +110,8 @@ namespace ClangPowerTools
       await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
       // Get DTE
-      var dteService = await GetServiceAsync(typeof(SEnvDTEService)) as AsyncService<DTE>;
-      mDte = dteService.GetService as DTE2;
+      var dteService = await GetServiceAsync(typeof(SEnvDTEService)) as AsyncServiceProviderWrapper<DTE>;
+      mDte = await dteService.GetServiceAsync() as DTE2;
 
       mRunningDocTableEvents = new RunningDocTableEvents(this);
       mErrorWindow = new ErrorWindowController(this);
@@ -151,8 +151,8 @@ namespace ClangPowerTools
         UnadviseSolutionEvents();
 
         // Get VsSolution 
-        var vsSolutionService = await GetServiceAsync(typeof(SVsSolutionService)) as IVsSolutionService;
-        mSolution = await vsSolutionService.GetVsSolutionAsync();
+        var vsSolutionService = await GetServiceAsync(typeof(SVsSolutionService)) as AsyncServiceProviderWrapper<SVsSolution>;
+        mSolution = await vsSolutionService.GetServiceAsync() as IVsSolution;
 
         mSolution?.AdviseSolutionEvents(this, out mHSolutionEvents);
       }
