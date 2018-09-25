@@ -5,31 +5,32 @@ using Microsoft.VisualStudio.Shell;
 
 namespace ClangPowerTools.Services.OleMenuCommandCustomService
 {
-  class OleMenuCommandServiceImpl : SOleMenuCommandService, IOleMenuCommandService, IService
-  {
-    #region Members
+  //class OleMenuCommandServiceImpl : SOleMenuCommandService, IBaseService
+  //{
+  //  #region Members
 
-    private IAsyncServiceProvider mServiceProvider;
+  //  private IAsyncServiceProvider mServiceProvider;
 
-    #endregion
-
-
-    #region Constructor 
-
-    public OleMenuCommandServiceImpl(IAsyncServiceProvider aAsyncServiceProvider)
-      => mServiceProvider = aAsyncServiceProvider;
-
-    #endregion
+  //  #endregion
 
 
-    #region IEnvDTEService implementation
+  //  #region Constructor 
 
-    public async Task<OleMenuCommandService> GetVsFileChangeAsync()
-    {
-      return await mServiceProvider.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-    }
+  //  public OleMenuCommandServiceImpl(IAsyncServiceProvider aAsyncServiceProvider)
+  //    => mServiceProvider = aAsyncServiceProvider;
 
-    #endregion
+  //  #endregion
 
-  }
+
+  //  #region IEnvDTEService implementation
+
+
+  //  public async Task<TService2> GetServiceAsync<TService, TService2>()
+  //  {
+  //    return (TService2) await mServiceProvider.GetServiceAsync(typeof(TService));
+  //  }
+
+  //  #endregion
+
+  //}
 }

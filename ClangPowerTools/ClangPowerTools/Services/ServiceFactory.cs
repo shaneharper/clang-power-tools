@@ -1,5 +1,6 @@
-﻿using ClangPowerTools.Services.OleMenuCommandCustomService;
+﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace ClangPowerTools.Services
     /// <summary>
     /// The service provider 
     /// </summary>
-    IAsyncServiceProvider mServiceProvider;
+    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
 
     #endregion
 
@@ -27,7 +28,7 @@ namespace ClangPowerTools.Services
     /// Instance constructor
     /// </summary>
     /// <param name="aServiceProvider">The service provider</param>
-    public ServiceFactory(IAsyncServiceProvider aServiceProvider)
+    public ServiceFactory(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aServiceProvider)
       => mServiceProvider = aServiceProvider;
 
     #endregion
@@ -43,34 +44,30 @@ namespace ClangPowerTools.Services
     /// <returns>The service of type serviceType</returns>
     public async Task<object> CreateService(IAsyncServiceContainer container, CancellationToken cancellationToken, Type serviceType)
     {
-      IService service = null;
-
-      await System.Threading.Tasks.Task.Run(() =>
+      return await System.Threading.Tasks.Task.Run(() =>
       {
         if (typeof(SEnvDTEService) == serviceType)
-          service = new EnvDTEService(mServiceProvider);
+          return new AsyncService<DTE>(mServiceProvider) as IBaseService<DTE>;
 
         else if (typeof(SVsFileChangeService) == serviceType)
-          service = new VsFileChangeService(mServiceProvider);
+          return new AsyncService<SVsFileChangeEx>(mServiceProvider) as IBaseService<SVsFileChangeEx>;
 
         else if (typeof(SVsRunningDocumentTableService) == serviceType)
-          service = new VsRunningDocumentTableService(mServiceProvider);
+          return new AsyncService<SVsRunningDocumentTable>(mServiceProvider) as IBaseService<SVsRunningDocumentTable>;
 
         else if (typeof(SVsSolutionService) == serviceType)
-          service = new VsSolutionService(mServiceProvider);
+          return new AsyncService<SVsSolution>(mServiceProvider) as IBaseService<SVsSolution>;
 
         else if (typeof(SVsStatusBarService) == serviceType)
-          service = new VsStatusBarService(mServiceProvider);
+          return new AsyncService<SVsStatusbar>(mServiceProvider) as IBaseService<SVsStatusbar>;
 
         else if (typeof(SVsOutputWindowService) == serviceType)
-          service = new VsOutputWindowService(mServiceProvider);
+          return new AsyncService<SVsOutputWindow>(mServiceProvider) as IBaseService<SVsOutputWindow>;
 
-        else if (typeof(SOleMenuCommandService) == serviceType)
-          service = new OleMenuCommandServiceImpl(mServiceProvider);
+        return null; 
 
       });
-
-      return service;
+      return null;
     }
 
     #endregion

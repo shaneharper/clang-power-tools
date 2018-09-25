@@ -1,42 +1,46 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
+﻿//using EnvDTE;
+//using EnvDTE80;
+//using Microsoft.VisualStudio.Shell;
+//using System.Threading.Tasks;
 
-namespace ClangPowerTools.Services
-{
-  public class EnvDTEService<T> : SEnvDTEService, IEnvDTEService<T>, IService where T : DTE
-  {
-    #region Members
+//namespace ClangPowerTools.Services
+//{
+//  public class EnvDTEService : SEnvDTEService, IBaseService<DTE2>
+//  {
+//    #region Properties
 
-    private IAsyncServiceProvider mServiceProvider;
+//    public DTE2 DteService { get; private set; }
 
-    #endregion
-
-
-    #region Constructor 
-
-    public EnvDTEService(IAsyncServiceProvider aAsyncServiceProvider)
-      => mServiceProvider = aAsyncServiceProvider;
-
-    #endregion
+//    #endregion
 
 
-    #region IEnvDTEService implementation
+//    #region Public Methods
+
+//    public async void Initialize(IAsyncServiceProvider aAsyncServiceProvider)
+//    {
+//      DteService = await aAsyncServiceProvider.GetServiceAsync(typeof(DTE)) as DTE2;
+//    }
 
 
-    //public async Task<T> GetServiceAsync()
-    //{
-    //  return await mServiceProvider.GetServiceAsync(typeof(T));
-    //}
 
-    public async Task<T> GetServiceAsync()
-    {
-      return await mServiceProvider.GetServiceAsync(T.GetType());
-    }
+//    #region IEnvDTEService implementation
 
-    #endregion
+//    public DTE2 GetService
+//    {
+//      get => DteService; 
+//      private set => throw new System.NotImplementedException();
+//    }
 
-  }
-}
+
+
+//    public DTE2 GetService<DTE2>()
+//    {
+//      return DteService;
+//    }
+
+//    #endregion
+
+//    #endregion
+
+//  }
+//}

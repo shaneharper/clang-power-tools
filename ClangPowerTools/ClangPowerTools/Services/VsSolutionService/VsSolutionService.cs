@@ -1,36 +1,36 @@
-﻿using System.Threading;
-using Microsoft.VisualStudio.Shell.Interop;
+﻿//using System.Threading;
+//using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ClangPowerTools.Services
-{
-  public class VsSolutionService : SVsSolutionService, IVsSolutionService, IService
-  {
-    #region Members
+//namespace ClangPowerTools.Services
+//{
+//  public class VsSolutionService : SVsSolutionService, IVsSolutionService, IService
+//  {
+//    #region Members
 
-    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
+//    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
 
-    #endregion
-
-
-    #region Constructor 
-
-    public VsSolutionService() { }
+//    #endregion
 
 
-    public VsSolutionService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
-      => mServiceProvider = aAsyncServiceProvider;
+//    #region Constructor 
 
-    #endregion
+//    public VsSolutionService() { }
 
 
-    #region IEnvDTEService implementation
+//    public VsSolutionService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
+//      => mServiceProvider = aAsyncServiceProvider;
 
-    public async System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync()
-    {
-      return await mServiceProvider.GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
-    }
+//    #endregion
 
-    #endregion
 
-  }
-}
+//    #region IEnvDTEService implementation
+
+//    public async System.Threading.Tasks.Task<IVsSolution> GetVsSolutionAsync()
+//    {
+//      return await mServiceProvider.GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
+//    }
+
+//    #endregion
+
+//  }
+//}

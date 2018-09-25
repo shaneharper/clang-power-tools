@@ -1,34 +1,34 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.Shell.Interop;
+﻿//using System.Threading;
+//using System.Threading.Tasks;
+//using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ClangPowerTools.Services
-{
-  public class VsOutputWindowService : SVsOutputWindowService, IVsOutputWindowService, IService
-  {
-    #region Members
+//namespace ClangPowerTools.Services
+//{
+//  public class VsOutputWindowService : SVsOutputWindowService, IVsOutputWindowService, IService
+//  {
+//    #region Members
 
-    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
+//    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
 
-    #endregion
-
-
-    #region Constructor 
-
-    public VsOutputWindowService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
-      => mServiceProvider = aAsyncServiceProvider;
-
-    #endregion
+//    #endregion
 
 
-    #region IEnvDTEService implementation
+//    #region Constructor 
 
-    public async Task<IVsOutputWindow> GetOutputWindowAsync()
-    {
-      return await mServiceProvider.GetServiceAsync(typeof(SVsOutputWindow)) as IVsOutputWindow;
-    }
+//    public VsOutputWindowService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
+//      => mServiceProvider = aAsyncServiceProvider;
 
-    #endregion
+//    #endregion
 
-  }
-}
+
+//    #region IEnvDTEService implementation
+
+//    public async Task<IVsOutputWindow> GetOutputWindowAsync()
+//    {
+//      return await mServiceProvider.GetServiceAsync(typeof(SVsOutputWindow)) as IVsOutputWindow;
+//    }
+
+//    #endregion
+
+//  }
+//}

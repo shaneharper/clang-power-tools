@@ -110,8 +110,8 @@ namespace ClangPowerTools
       await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
       // Get DTE
-      var dteService = await GetServiceAsync(typeof(SEnvDTEService)) as IEnvDTEService;
-      mDte = await dteService.GetDTE2Async();
+      var dteService = await GetServiceAsync(typeof(SEnvDTEService)) as AsyncService<DTE>;
+      mDte = dteService.GetService as DTE2;
 
       mRunningDocTableEvents = new RunningDocTableEvents(this);
       mErrorWindow = new ErrorWindowController(this);

@@ -178,10 +178,10 @@
     <Compile Include="Options\ViewModel\ConfigurationPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\AsyncService.cs" />
     <Compile Include="Services\DTEService\EnvDTEService.cs" />
-    <Compile Include="Services\DTEService\IEnvDTEService.cs" />
+    <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\DTEService\SEnvDTEService.cs" />
-    <Compile Include="Services\IService.cs" />
     <Compile Include="Services\OleMenuCommandCustomService\IOleMenuCommandService.cs" />
     <Compile Include="Services\OleMenuCommandCustomService\OleMenuCommandServiceImpl.cs" />
     <Compile Include="Services\OleMenuCommandCustomService\SOleMenuCommandService.cs" />

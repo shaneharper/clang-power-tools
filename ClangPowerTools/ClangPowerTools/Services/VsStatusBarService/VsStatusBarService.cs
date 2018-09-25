@@ -1,36 +1,36 @@
-﻿using System.Threading;
-using Microsoft.VisualStudio.Shell.Interop;
+﻿//using System.Threading;
+//using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ClangPowerTools.Services
-{
-  public class VsStatusBarService : SVsStatusBarService, IVsStatusBarService, IService
-  {
-    #region Members
+//namespace ClangPowerTools.Services
+//{
+//  public class VsStatusBarService : SVsStatusBarService, IVsStatusBarService, IService
+//  {
+//    #region Members
 
-    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
+//    private Microsoft.VisualStudio.Shell.IAsyncServiceProvider mServiceProvider;
 
-    #endregion
-
-
-    #region Constructor 
-
-    public VsStatusBarService() { }
+//    #endregion
 
 
-    public VsStatusBarService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
-      => mServiceProvider = aAsyncServiceProvider;
+//    #region Constructor 
 
-    #endregion
+//    public VsStatusBarService() { }
 
 
-    #region IEnvDTEService implementation
+//    public VsStatusBarService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider aAsyncServiceProvider)
+//      => mServiceProvider = aAsyncServiceProvider;
 
-    public async System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync()
-    {
-      return await mServiceProvider.GetServiceAsync(typeof(SVsStatusbar)) as IVsStatusbar;
-    }
+//    #endregion
 
-    #endregion
 
-  }
-}
+//    #region IEnvDTEService implementation
+
+//    public async System.Threading.Tasks.Task<IVsStatusbar> GetVsStatusBarAsync()
+//    {
+//      return await mServiceProvider.GetServiceAsync(typeof(SVsStatusbar)) as IVsStatusbar;
+//    }
+
+//    #endregion
+
+//  }
+//}
