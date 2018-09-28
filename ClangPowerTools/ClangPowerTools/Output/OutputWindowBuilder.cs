@@ -48,7 +48,7 @@ namespace ClangPowerTools.Output
 
       // Get the VS Output Window 
       if (null == mOutputWindow.VsOutputWindow)
-        mOutputWindow.VsOutputWindow = await outputWindowService.GetServiceAsync() as IVsOutputWindow;
+        mOutputWindow.VsOutputWindow = await outputWindowService.GetVsServiceAsync() as IVsOutputWindow;
 
       if (null == mOutputWindow.Pane)
       {

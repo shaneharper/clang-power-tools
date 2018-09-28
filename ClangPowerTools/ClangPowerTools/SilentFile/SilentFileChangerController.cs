@@ -1,5 +1,4 @@
 ﻿using ClangPowerTools.Builder;
-using ClangPowerTools.Error;
 using ClangPowerTools.Services;
 using EnvDTE;
 using Microsoft.VisualStudio;
@@ -8,7 +7,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace ClangPowerTools.SilentFile
 {
@@ -53,20 +52,60 @@ namespace ClangPowerTools.SilentFile
     #region Public methods
 
 
+
+    public async System.Threading.Tasks.Task<object> Add(IEnumerable<string> aFilesPath)
+    {
+      return await System.Threading.Tasks.Task.Run(async () =>
+      {
+        foreach (var filePath in aFilesPath)
+        {
+          var silentFile = await GetNewSilentFileChanger(filePath);
+          mSilentFileChangers.Add(silentFile);
+        }
+        return new object();
+      });
+    }
+
+
+    public async System.Threading.Tasks.Task<object> Add(Documents aDocuments)
+    {
+      return await System.Threading.Tasks.Task.Run(async () =>
+      {
+        foreach (Document doc in aDocuments)
+        {
+          var silentFile = await GetNewSilentFileChanger(Path.Combine(doc.Path, doc.Name));
+          mSilentFileChangers.Add(silentFile);
+        }
+        return new object();
+      });
+    }
+
+
+    public async System.Threading.Tasks.Task<object> SilentFiles()
+    {
+      return await System.Threading.Tasks.Task.Run(() =>
+      {
+        foreach (var silentFile in mSilentFileChangers)
+          Silent(silentFile);
+        return new object();
+      });
+    }
+
+
     /// <summary>
     /// Silent all files from a IEnumerable data collection
     /// </summary>
     /// <param name="aServiceProvider">Async package instance</param>
     /// <param name="aFilesPath">Files path collection for the files for which the changes will be ignored</param>
-    public void SilentFiles(IEnumerable<string> aFilesPath)
-    {
-      foreach (var filePath in aFilesPath)
-      {
-        var silentFile = GetNewSilentFileChanger(filePath);
-        mSilentFileChangers.Add(silentFile);
-        Silent(silentFile);
-      }
-    }
+    //public void SilentFiles(IEnumerable<string> aFilesPath)
+    //{
+    //  foreach (var filePath in aFilesPath)
+    //  {
+    //    var silentFile = GetNewSilentFileChanger(filePath);
+    //    mSilentFileChangers.Add(silentFile);
+    //    Silent(silentFile);
+    //  }
+    //}
 
 
     /// <summary>
@@ -74,15 +113,15 @@ namespace ClangPowerTools.SilentFile
     /// </summary>
     /// <param name="aServiceProvider">Async package instance</param>
     /// <param name="aDte">DTE instance to collect all the documents </param>
-    public void SilentFiles(Documents aDocuments)
-    {
-      foreach (Document doc in aDocuments)
-      {
-        var silentFile = GetNewSilentFileChanger(Path.Combine(doc.Path, doc.Name));
-        mSilentFileChangers.Add(silentFile);
-        Silent(silentFile);
-      }
-    }
+    //public void SilentFiles(Documents aDocuments)
+    //{
+    //  foreach (Document doc in aDocuments)
+    //  {
+    //    var silentFile = GetNewSilentFileChanger(Path.Combine(doc.Path, doc.Name));
+    //    mSilentFileChangers.Add(silentFile);
+    //    Silent(silentFile);
+    //  }
+    //}
 
 
     #region IDisposable Implementation
@@ -111,13 +150,15 @@ namespace ClangPowerTools.SilentFile
     /// </summary>
     /// <param name="aServiceProvider">Async package instance</param>
     /// <param name="aFilePath">The file path of the file for which the changes will be ignored</param>
-    private SilentFileChangerModel GetNewSilentFileChanger(string aFilePath)
+    private async Task<SilentFileChangerModel> GetNewSilentFileChanger(string aFilePath)
     {
-      IBuilder<SilentFileChangerModel> silentFileChangerBuilder = new SilentFileChangerBuilder(mAsyncPackage, aFilePath, true);
-      silentFileChangerBuilder.Build();
-      var silentFile = silentFileChangerBuilder.GetResult();
-
-      return silentFile;
+      return await System.Threading.Tasks.Task.Run(async () =>
+      {
+        IAsyncBuilder<SilentFileChangerModel> silentFileChangerBuilder = new SilentFileChangerBuilder(mAsyncPackage, aFilePath, true);
+        await silentFileChangerBuilder.AsyncBuild();
+        var silentFileModel = silentFileChangerBuilder.GetAsyncResult();
+        return silentFileModel;
+      });
     }
 
 
@@ -147,7 +188,7 @@ namespace ClangPowerTools.SilentFile
         aSilentFileChanger.PersistDocData.ReloadDocData(0);
 
       var fileChangeService = await mAsyncPackage.GetServiceAsync(typeof(SVsFileChangeService)) as AsyncServiceProviderWrapper<SVsFileChangeEx>;
-      var fileChange = await fileChangeService.GetServiceAsync() as IVsFileChangeEx; 
+      var fileChange = await fileChangeService.GetVsServiceAsync() as IVsFileChangeEx;
 
       if (fileChange == null)
         return;

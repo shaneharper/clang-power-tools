@@ -149,7 +149,7 @@ namespace ClangPowerTools
       mCommandsController.Running = true;
       mFix = SetTidyFixParameter(sender);
 
-      await System.Threading.Tasks.Task.Run(() =>
+      await System.Threading.Tasks.Task.Run(async () =>
       {
         try
         {
@@ -174,8 +174,9 @@ namespace ClangPowerTools
                 FilePathCollector fileCollector = new FilePathCollector();
                 var filesPath = fileCollector.Collect(mItemsCollector.GetItems).ToList();
 
-                silentFileController.SilentFiles(filesPath);
-                silentFileController.SilentFiles(DTEObj.Documents);
+                await silentFileController.Add(filesPath);
+                await silentFileController.Add(DTEObj.Documents);
+                await silentFileController.SilentFiles();
               }
               RunScript(OutputWindowConstants.kTidyCodeCommand, mTidyOptions, mTidyChecks, mTidyCustomChecks, mClangFormatView, mFix);
             }

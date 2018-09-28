@@ -30,7 +30,7 @@ namespace ClangPowerTools.Services
     #region IEnvDTEService implementation
 
 
-    public async System.Threading.Tasks.Task<TService> GetServiceAsync()
+    public async System.Threading.Tasks.Task<TService> GetVsServiceAsync()
     {
       return (TService)await mServiceProvider.GetServiceAsync(typeof(TService));
     }
