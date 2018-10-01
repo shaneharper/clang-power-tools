@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using ShellConstants = Microsoft.VisualStudio.Shell.Interop.Constants;
 

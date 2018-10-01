@@ -2,7 +2,6 @@
 using ClangPowerTools.DialogPages;
 using ClangPowerTools.Output;
 using ClangPowerTools.Services;
-using ClangPowerTools.Services.OleMenuCommandCustomService;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -17,8 +16,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Xml;
-using ClangPowerTools.Services;
-using ClangPowerTools.Output;
 
 namespace ClangPowerTools
 {
