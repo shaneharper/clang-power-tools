@@ -178,7 +178,7 @@
     <Compile Include="Options\ViewModel\ConfigurationPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\VsServiceProvider.cs" />
+    <Compile Include="Providers\VsServiceProvider.cs" />
     <Compile Include="SettingsPathBuilder.cs" />
     <Compile Include="SilentFile\SilentFileChangerBuilder.cs" />
     <Compile Include="SilentFile\SilentFileChangerEqualityComparer.cs" />

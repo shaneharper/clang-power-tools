@@ -1,6 +1,6 @@
 ﻿using ClangPowerTools.Builder;
 using ClangPowerTools.Handlers;
-using ClangPowerTools.Services;
+using ClangPowerTools.Providers;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;

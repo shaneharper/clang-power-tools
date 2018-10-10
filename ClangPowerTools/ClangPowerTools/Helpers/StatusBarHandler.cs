@@ -1,5 +1,5 @@
 ﻿using ClangPowerTools.Handlers;
-using ClangPowerTools.Services;
+using ClangPowerTools.Providers;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;

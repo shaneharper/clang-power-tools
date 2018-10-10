@@ -1,4 +1,4 @@
-﻿using ClangPowerTools.Services;
+﻿using ClangPowerTools.Providers;
 using EnvDTE;
 
 namespace ClangPowerTools

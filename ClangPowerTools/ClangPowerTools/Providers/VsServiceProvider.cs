@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ClangPowerTools.Services
+namespace ClangPowerTools.Providers
 {
   /// <summary>
   /// Contains all the logic of store and get VS services

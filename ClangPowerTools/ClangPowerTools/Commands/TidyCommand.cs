@@ -1,6 +1,6 @@
 ﻿using ClangPowerTools.DialogPages;
 using ClangPowerTools.Output;
-using ClangPowerTools.Services;
+using ClangPowerTools.Providers;
 using ClangPowerTools.SilentFile;
 using EnvDTE;
 using EnvDTE80;

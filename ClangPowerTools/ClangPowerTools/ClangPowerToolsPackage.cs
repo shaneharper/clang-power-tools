@@ -1,7 +1,7 @@
 ﻿using ClangPowerTools.Commands;
 using ClangPowerTools.DialogPages;
 using ClangPowerTools.Output;
-using ClangPowerTools.Services;
+using ClangPowerTools.Providers;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;

@@ -1,5 +1,5 @@
 ﻿using ClangPowerTools.Builder;
-using ClangPowerTools.Services;
+using ClangPowerTools.Providers;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
