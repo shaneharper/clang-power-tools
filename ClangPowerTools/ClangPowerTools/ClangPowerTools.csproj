@@ -169,6 +169,7 @@
     <Compile Include="Output\OutputWindowModel.cs" />
     <Compile Include="PCHCleaner.cs" />
     <Compile Include="Helpers\ProjectConfigurationHandler.cs" />
+    <Compile Include="Providers\SettingsProvider.cs" />
     <Compile Include="RunningDocTableEvents.cs" />
     <Compile Include="Script\ClangTidyModeParametersFactory.cs" />
     <Compile Include="Script\GenericScriptBuilder.cs" />

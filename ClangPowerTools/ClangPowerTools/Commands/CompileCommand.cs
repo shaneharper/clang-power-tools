@@ -82,7 +82,8 @@ namespace ClangPowerTools
 
     public override void CommandEventsBeforeExecute(string aGuid, int aId, object aCustomIn, object aCustomOut, ref bool aCancelDefault)
     {
-      if (false == mGeneralOptions.ClangCompileAfterVsCompile)
+      var generalSettings = SettingsProvider.GetPage(typeof(ClangGeneralOptionsView)) as ClangGeneralOptionsView;
+      if (false == generalSettings.ClangCompileAfterVsCompile)
         return;
 
       string commandName = GetCommandName(aGuid, aId);
