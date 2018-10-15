@@ -1,4 +1,5 @@
 ﻿using ClangPowerTools.DialogPages;
+using ClangPowerTools.Providers;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -8,39 +9,6 @@ namespace ClangPowerTools.Script
 {
   internal class ClangTidyModeParametersFactory
   {
-    #region Members 
-
-
-    /// <summary>
-    /// The Tidy Custom Checks option page
-    /// </summary>
-    private ClangTidyCustomChecksOptionsView mTidyCustomChecks;
-
-    /// <summary>
-    /// The Tidy Predefined Checks option page
-    /// </summary>
-    private ClangTidyPredefinedChecksOptionsView mTidyChecks;
-
-
-    #endregion
-
-
-    #region Constructor 
-
-
-    /// <summary>
-    /// Instance constructor
-    /// </summary>
-    public ClangTidyModeParametersFactory(ClangTidyCustomChecksOptionsView aTidyCustomChecks, ClangTidyPredefinedChecksOptionsView aTidyChecks)
-    {
-      mTidyCustomChecks = aTidyCustomChecks;
-      mTidyChecks = aTidyChecks;
-    }
-
-
-    #endregion
-
-
     #region Methods 
 
     #region Public Methods
@@ -90,8 +58,9 @@ namespace ClangPowerTools.Script
     /// <returns></returns>
     private string GetCustomChecks()
     {
-      return !string.IsNullOrWhiteSpace(mTidyCustomChecks.TidyChecks) ?
-        $",{mTidyCustomChecks.TidyChecks.Replace(';', ',')}" :
+      var tidyCustomChecks = SettingsProvider.GetPage(typeof(ClangTidyCustomChecksOptionsView)) as ClangTidyCustomChecksOptionsView;
+      return null != tidyCustomChecks && !string.IsNullOrWhiteSpace(tidyCustomChecks.TidyChecks) ?
+        $",{tidyCustomChecks.TidyChecks.Replace(';', ',')}" :
         string.Empty;
     }
 
@@ -103,7 +72,9 @@ namespace ClangPowerTools.Script
     private string GetTidyPredefinedChecks()
     {
       var parameters = string.Empty;
-      foreach (PropertyInfo prop in mTidyChecks.GetType().GetProperties())
+      var tidyPredefinedChecks = SettingsProvider.GetPage(typeof(ClangTidyPredefinedChecksOptionsView)) as ClangTidyPredefinedChecksOptionsView;
+
+      foreach (PropertyInfo prop in tidyPredefinedChecks.GetType().GetProperties())
       {
         object[] propAttrs = prop.GetCustomAttributes(false);
         object clangCheckAttr = propAttrs.FirstOrDefault(attr => typeof(ClangCheckAttribute) == attr.GetType());
@@ -113,7 +84,7 @@ namespace ClangPowerTools.Script
           continue;
 
         DisplayNameAttribute displayNameAttr = (DisplayNameAttribute)displayNameAttrObj;
-        var value = prop.GetValue(mTidyChecks, null);
+        var value = prop.GetValue(tidyPredefinedChecks, null);
         if (Boolean.TrueString != value.ToString())
           continue;
         parameters = $"{parameters},{displayNameAttr.DisplayName}";

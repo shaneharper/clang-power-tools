@@ -19,10 +19,6 @@ namespace ClangPowerTools
   {
     #region Members
     
-    private ClangTidyPredefinedChecksOptionsView mTidyChecks;
-    private ClangTidyCustomChecksOptionsView mTidyCustomChecks;
-    private ClangFormatOptionsView mClangFormatView;
-
     private bool mFix = false;
 
     private bool mForceTidyToFix = false;
@@ -59,10 +55,6 @@ namespace ClangPowerTools
       ErrorWindowController aErrorWindow, OutputWindowController aOutputWindow, AsyncPackage aPackage, Guid aGuid, int aId)
         : base(aCommandsController, aErrorWindow, aOutputWindow, aPackage, aGuid, aId)
     {
-      mTidyChecks = (ClangTidyPredefinedChecksOptionsView)AsyncPackage.GetDialogPage(typeof(ClangTidyPredefinedChecksOptionsView));
-      mTidyCustomChecks = (ClangTidyCustomChecksOptionsView)AsyncPackage.GetDialogPage(typeof(ClangTidyCustomChecksOptionsView));
-      mClangFormatView = (ClangFormatOptionsView)AsyncPackage.GetDialogPage(typeof(ClangFormatOptionsView));
-
       if (null != aCommandService)
       {
         var menuCommandID = new CommandID(CommandSet, Id);
@@ -181,7 +173,7 @@ namespace ClangPowerTools
                 silentFileController.SilentFiles(filesPath);
                 silentFileController.SilentFiles(dte2.Documents);
               }
-              RunScript(OutputWindowConstants.kTidyCodeCommand, mTidyChecks, mTidyCustomChecks, mClangFormatView, mFix);
+              RunScript(OutputWindowConstants.kTidyCodeCommand, mFix);
             }
           }
         }

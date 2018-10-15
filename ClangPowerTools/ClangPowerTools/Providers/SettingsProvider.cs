@@ -23,19 +23,19 @@ namespace ClangPowerTools.Providers
     public static DialogPage GetPage(Type aType)
     {
       if (aType == typeof(ClangGeneralOptionsView))
-        return mAsyncPackage.GetDialogPage(aType) as ClangGeneralOptionsView;
+        return mAsyncPackage.GetDialogPage(aType);
 
       if (aType == typeof(ClangTidyOptionsView))
-        return mAsyncPackage.GetDialogPage(aType) as ClangTidyOptionsView;
+        return mAsyncPackage.GetDialogPage(aType);
 
       if (aType == typeof(ClangTidyCustomChecksOptionsView))
-        return mAsyncPackage.GetDialogPage(aType) as ClangTidyCustomChecksOptionsView;
+        return mAsyncPackage.GetDialogPage(aType);
 
       if (aType == typeof(ClangTidyPredefinedChecksOptionsView))
-        return mAsyncPackage.GetDialogPage(aType) as ClangTidyPredefinedChecksOptionsView;
+        return mAsyncPackage.GetDialogPage(aType);
 
       if (aType == typeof(ClangFormatOptionsView))
-        return mAsyncPackage.GetDialogPage(aType) as ClangFormatOptionsView;
+        return mAsyncPackage.GetDialogPage(aType);
 
       return null;
     }

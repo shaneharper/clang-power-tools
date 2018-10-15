@@ -20,10 +20,6 @@ namespace ClangPowerTools.Script
     /// The final result after the build method
     /// </summary>
     private string mScript = string.Empty;
-    
-    private ClangTidyPredefinedChecksOptionsView mTidyChecks;
-    private ClangTidyCustomChecksOptionsView mTidyCustomChecks;
-    private ClangFormatOptionsView mClangFormatView;
 
     private string mVsEdition;
     private string mVsVersion;
@@ -40,12 +36,8 @@ namespace ClangPowerTools.Script
     /// <summary>
     /// Instance constructor
     /// </summary>
-    public GenericScriptBuilder(ClangTidyPredefinedChecksOptionsView aTidyChecks,
-      ClangTidyCustomChecksOptionsView aTidyCustomChecks, ClangFormatOptionsView aClangFormatView, string aVsEdition, string aVsVersion, bool aTidyFixFlag = false)
+    public GenericScriptBuilder(string aVsEdition, string aVsVersion, bool aTidyFixFlag = false)
     {
-      mTidyChecks = aTidyChecks;
-      mTidyCustomChecks = aTidyCustomChecks;
-      mClangFormatView = aClangFormatView;
       mVsEdition = aVsEdition;
       mVsVersion = aVsVersion;
       mTidyFixFlag = aTidyFixFlag;
@@ -68,13 +60,14 @@ namespace ClangPowerTools.Script
     public void Build()
     {
       var tidySettings = SettingsProvider.GetPage(typeof(ClangTidyOptionsView)) as ClangTidyOptionsView;
+      var clangFormatSettings = SettingsProvider.GetPage(typeof(ClangFormatOptionsView)) as ClangFormatOptionsView;
 
       // Append the General parameters and Tidy parameters from option pages
       mScript = $"{GetGeneralParameters()} {(null != tidySettings ? GetTidyParameters(tidySettings) : ScriptConstants.kParallel)}";
 
       // Append the clang-format style
-      if (null != mClangFormatView && null != tidySettings && mTidyFixFlag && tidySettings.FormatAfterTidy)
-        mScript += $" {ScriptConstants.kClangFormatStyle} {mClangFormatView.Style}";
+      if (null != clangFormatSettings && null != tidySettings && mTidyFixFlag && tidySettings.FormatAfterTidy)
+        mScript += $" {ScriptConstants.kClangFormatStyle} {clangFormatSettings.Style}";
 
       // Append the Visual Studio Version and Edition
       mScript += $" {ScriptConstants.kVsVersion} {mVsVersion} {ScriptConstants.kVsEdition} {mVsEdition}";
@@ -170,7 +163,7 @@ namespace ClangPowerTools.Script
     private string GetTidyParameters(ClangTidyOptionsView aTidySettings)
     {
       // Get the clang tidy parameters depending on the tidy mode
-      var clangTidyParametersFactory = new ClangTidyModeParametersFactory(mTidyCustomChecks, mTidyChecks);
+      var clangTidyParametersFactory = new ClangTidyModeParametersFactory();
       var parameters = clangTidyParametersFactory.Create(
         ClangTidyUseChecksFromConvertor.ToString(aTidySettings.UseChecksFrom), ref mUseClangTidyConfigFile);
 

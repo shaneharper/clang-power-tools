@@ -124,9 +124,11 @@ namespace ClangPowerTools
         mCommandEvents = dte2.Events.CommandEvents;
       }
 
+      SettingsProvider.Initialize(this);
+
       // Get the general clang option page
       var generalOptions = SettingsProvider.GetPage(typeof(ClangGeneralOptionsView)) as ClangGeneralOptionsView;
-        
+
       // Detect the first install 
       if (null == generalOptions.Version || string.IsNullOrWhiteSpace(generalOptions.Version))
         ShowToolbare(); // Show the toolbar on the first install

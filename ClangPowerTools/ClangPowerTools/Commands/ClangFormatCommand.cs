@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using ClangPowerTools.DialogPages;
 using ClangPowerTools.Output;
+using ClangPowerTools.Providers;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -20,7 +21,7 @@ namespace ClangPowerTools.Commands
   {
     #region Members
 
-    private ClangFormatOptionsView mClangFormatView = null;
+    private ClangFormatOptionsView mClangFormatSettings = null;
     private Document mDocument = null;
 
     #endregion
@@ -87,29 +88,32 @@ namespace ClangPowerTools.Commands
 
     public override void OnBeforeSave(object sender, Document aDocument)
     {
-      var clangFormatOptionPage = GetUserOptions();
+      var clangFormatSettings = SettingsProvider.GetPage(typeof(ClangFormatOptionsView)) as ClangFormatOptionsView;
 
-      if (false == clangFormatOptionPage.EnableFormatOnSave)
+      if (null == clangFormatSettings)
+        return;
+
+      if (false == clangFormatSettings.EnableFormatOnSave)
         return;
 
       if (false == Vsix.IsDocumentDirty(aDocument))
         return;
 
-      if (false == FileHasExtension(aDocument.FullName, clangFormatOptionPage.FileExtensions))
+      if (false == FileHasExtension(aDocument.FullName, clangFormatSettings.FileExtensions))
         return;
 
-      if (true == SkipFile(aDocument.FullName, clangFormatOptionPage.SkipFiles))
+      if (true == SkipFile(aDocument.FullName, clangFormatSettings.SkipFiles))
         return;
 
-      var option = GetUserOptions().Clone();
-      option.FallbackStyle = ClangFormatFallbackStyle.none;
+      var clangFromatSettingsClone = (SettingsProvider.GetPage(typeof(ClangFormatOptionsView)) as ClangFormatOptionsView).Clone();
+      clangFromatSettingsClone.FallbackStyle = ClangFormatFallbackStyle.none;
 
-      FormatDocument(aDocument, option);
+      FormatDocument(aDocument, clangFromatSettingsClone);
     }
 
     private void FormatDocument(Document aDocument, ClangFormatOptionsView aOptions)
     {
-      mClangFormatView = aOptions;
+      mClangFormatSettings = aOptions;
       mDocument = aDocument;
 
       RunClangFormat(new object(), new EventArgs());
@@ -130,7 +134,7 @@ namespace ClangPowerTools.Commands
     {
       try
       {
-        if (null == mClangFormatView)
+        if (null == mClangFormatSettings)
         {
           FormatAllSelectedDocuments();
           return;
@@ -153,7 +157,7 @@ namespace ClangPowerTools.Commands
           // get the necessary elements for format selection
           FindStartPositionAndLengthOfSelectedText(view, text, out startPosition, out length);
           dirPath = Vsix.GetDocumentParent(view);
-          mClangFormatView = GetUserOptions();
+          mClangFormatSettings = SettingsProvider.GetPage(typeof(ClangFormatOptionsView)) as ClangFormatOptionsView;
         }
         else
         {
@@ -161,7 +165,7 @@ namespace ClangPowerTools.Commands
           text = FormatEndOfFile(view, filePath, out dirPath);
         }
 
-        process = CreateProcess(text, startPosition, length, dirPath, filePath, mClangFormatView);
+        process = CreateProcess(text, startPosition, length, dirPath, filePath, mClangFormatSettings);
 
         try
         {
@@ -192,12 +196,12 @@ namespace ClangPowerTools.Commands
       finally
       {
         mDocument = null;
-        mClangFormatView = null;
+        mClangFormatSettings = null;
       }
     }
 
 
-    private ClangFormatOptionsView GetUserOptions() => (ClangFormatOptionsView)AsyncPackage.GetDialogPage(typeof(ClangFormatOptionsView));
+    //private ClangFormatOptionsView GetUserOptions() => (ClangFormatOptionsView)AsyncPackage.GetDialogPage(typeof(ClangFormatOptionsView));
 
 
     private bool SkipFile(string aFilePath, string aSkipFiles)
@@ -223,7 +227,7 @@ namespace ClangPowerTools.Commands
         if (null == document)
           continue;
 
-        mClangFormatView = GetUserOptions();
+        mClangFormatSettings = SettingsProvider.GetPage(typeof(ClangFormatOptionsView)) as ClangFormatOptionsView;
         mDocument = document;
 
         RunClangFormat(new object(), new EventArgs());
