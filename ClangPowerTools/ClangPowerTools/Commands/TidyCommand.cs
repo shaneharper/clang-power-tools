@@ -18,8 +18,7 @@ namespace ClangPowerTools
   internal sealed class TidyCommand : ClangCommand
   {
     #region Members
-
-    private ClangTidyOptionsView mTidyOptions;
+    
     private ClangTidyPredefinedChecksOptionsView mTidyChecks;
     private ClangTidyCustomChecksOptionsView mTidyCustomChecks;
     private ClangFormatOptionsView mClangFormatView;
@@ -60,7 +59,6 @@ namespace ClangPowerTools
       ErrorWindowController aErrorWindow, OutputWindowController aOutputWindow, AsyncPackage aPackage, Guid aGuid, int aId)
         : base(aCommandsController, aErrorWindow, aOutputWindow, aPackage, aGuid, aId)
     {
-      mTidyOptions = (ClangTidyOptionsView)AsyncPackage.GetDialogPage(typeof(ClangTidyOptionsView));
       mTidyChecks = (ClangTidyPredefinedChecksOptionsView)AsyncPackage.GetDialogPage(typeof(ClangTidyPredefinedChecksOptionsView));
       mTidyCustomChecks = (ClangTidyCustomChecksOptionsView)AsyncPackage.GetDialogPage(typeof(ClangTidyCustomChecksOptionsView));
       mClangFormatView = (ClangFormatOptionsView)AsyncPackage.GetDialogPage(typeof(ClangFormatOptionsView));
@@ -103,7 +101,8 @@ namespace ClangPowerTools
       if (false == mSaveCommandWasGiven) // The save event was not triggered by Save File or SaveAll commands
         return;
 
-      if (false == mTidyOptions.AutoTidyOnSave) // The clang-tidy on save option is disable 
+      var tidySettings = SettingsProvider.GetPage(typeof(ClangTidyOptionsView)) as ClangTidyOptionsView;
+      if (null != tidySettings && false == tidySettings.AutoTidyOnSave) // The clang-tidy on save option is disable 
         return;
 
       if (true == mCommandsController.Running) // Clang compile/tidy command is running
@@ -166,7 +165,8 @@ namespace ClangPowerTools
           {
             using (var fileChangerWatcher = new FileChangerWatcher())
             {
-              if (mFix || mTidyOptions.AutoTidyOnSave)
+              var tidySettings = SettingsProvider.GetPage(typeof(ClangTidyOptionsView)) as ClangTidyOptionsView;
+              if (null != tidySettings && (mFix || tidySettings.AutoTidyOnSave))
               {
                 fileChangerWatcher.OnChanged += FileOpener.Open;
 
@@ -181,7 +181,7 @@ namespace ClangPowerTools
                 silentFileController.SilentFiles(filesPath);
                 silentFileController.SilentFiles(dte2.Documents);
               }
-              RunScript(OutputWindowConstants.kTidyCodeCommand, mTidyOptions, mTidyChecks, mTidyCustomChecks, mClangFormatView, mFix);
+              RunScript(OutputWindowConstants.kTidyCodeCommand, mTidyChecks, mTidyCustomChecks, mClangFormatView, mFix);
             }
           }
         }

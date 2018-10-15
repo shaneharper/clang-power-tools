@@ -98,7 +98,7 @@ namespace ClangPowerTools
 
     #region Protected methods
 
-    protected void RunScript(string aCommandName, ClangTidyOptionsView mTidyOptions = null, ClangTidyPredefinedChecksOptionsView mTidyChecks = null,
+    protected void RunScript(string aCommandName, ClangTidyPredefinedChecksOptionsView mTidyChecks = null,
       ClangTidyCustomChecksOptionsView mTidyCustomChecks = null, ClangFormatOptionsView aClangFormatView = null, bool aTidyFixFlag = false)
     {
       try
@@ -110,7 +110,7 @@ namespace ClangPowerTools
         runModeScriptBuilder.Build();
         var runModeParameters = runModeScriptBuilder.GetResult();
 
-        IBuilder<string> genericScriptBuilder = new GenericScriptBuilder(mTidyOptions, mTidyChecks,
+        IBuilder<string> genericScriptBuilder = new GenericScriptBuilder(mTidyChecks,
           mTidyCustomChecks, aClangFormatView, VsEdition, VsVersion, aTidyFixFlag);
         genericScriptBuilder.Build();
         var genericParameters = genericScriptBuilder.GetResult();
